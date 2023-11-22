@@ -1,0 +1,39 @@
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: {{ .Release.Name }}
+  namespace: "{{ .Release.Namespace }}"
+  labels:
+    app: {{ .Release.Name }}
+    name: {{ .Release.Name }}
+  annotations:
+    marketplace.cloud.google.com/deploy-info: '{"partner_id": "synthesized", "product_id": {{ .Chart.Name | quote }}, "partner_name": "Synthesized"}'
+spec:
+  descriptor:
+    type: SDK
+    version: "{{ .Values.global.azure.images.tdkoffer.registry }}"
+    description: |-
+      Populate non-production environments with production-like data.
+    maintainers:
+      - name: Synthesized
+        url: https://www.synthesized.io/
+    links:
+      - description: 'User Guide'
+        url: https://github.com/synthesized-io/tdk-on-gcp/blob/main/README.md
+    notes: |-
+      You can learn more about TDK by clicking on the link - https://docs.synthesized.io/tdk/latest/user_guide/getting_started/what_is_tdk
+  selector:
+    matchLabels:
+      name: {{ .Release.Name }}
+  addOwnerRef: true
+  componentKinds:
+    - group: v1
+      kind: Secret
+    - group: batch/v1
+      kind: CronJob
+    - group: batch/v1
+      kind: Job
+    - group: apps/v1
+      kind: Deployment
+    - group: v1
+      kind: ServiceAccount
