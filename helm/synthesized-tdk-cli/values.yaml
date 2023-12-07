@@ -96,12 +96,6 @@ cronJobPodLabels: { }
 # Note: AWS marketplace hourly-billing depends on the Pod lifetime.
 ttlSecondsAfterFinished: 60
 
-resources:
-  requests:
-    cpu: 1
-  limits:
-    cpu: 2
-
 global:
   azure:
     images:

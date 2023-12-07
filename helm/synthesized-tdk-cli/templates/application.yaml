@@ -19,7 +19,7 @@ spec:
         url: https://www.synthesized.io/
     links:
       - description: 'User Guide'
-        url: https://github.com/synthesized-io/tdk-on-gcp/blob/main/README.md
+        url: https://github.com/synthesized-io/tdk-on-azure/blob/main/README.md
     notes: |-
       You can learn more about TDK by clicking on the link - https://docs.synthesized.io/tdk/latest/user_guide/getting_started/what_is_tdk
   selector:
