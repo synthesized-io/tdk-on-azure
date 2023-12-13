@@ -57,9 +57,10 @@ spec:
                 - name: {{ $key }}
                   value: {{ $val | quote }}
               {{- end }}
-                - name: TDK_GCP_LICENSE_ENABLED
-                  value: "true"
-                - name: TDK_GCP_ENABLED
+{{/*                For metering-based listing*/}}
+{{/*                - name: TDK_AZURE_LICENSE_ENABLED*/}}
+{{/*                  value: "true"*/}}
+                - name: TDK_AZURE_ENABLED
                   value: "true"
               envFrom:
                 - secretRef:
