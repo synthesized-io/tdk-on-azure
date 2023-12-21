@@ -214,7 +214,7 @@
                         "defaultValue": "",
                         "toolTip": "Only lowercase alphanumeric characters are allowed, and the value must be 6-30 characters long.",
                         "constraints": {
-                            "required": true,
+                            "required": false,
                             "regex": "^[a-z0-9]{6,30}$",
                             "validationMessage": "Only lowercase alphanumeric characters are allowed, and the value must be 6-30 characters long."
                         },
@@ -223,11 +223,11 @@
                     {
                         "name": "SYNTHESIZED_INPUT_URL",
                         "type": "Microsoft.Common.TextBox",
-                        "label": "SYNTHESIZED_INPUT_URL",
-                        "toolTip": "SYNTHESIZED_INPUT_URL",
+                        "label": "--input-url",
+                        "toolTip": "JDBC URL for the INPUT database",
                         "defaultValue": "",
                         "constraints": {
-                            "required": true,
+                            "required": false,
                             "validationMessage": "Value is incorrect",
                             "regex": ".*"
                         }
@@ -235,35 +235,40 @@
                     {
                         "name": "SYNTHESIZED_INPUT_USERNAME",
                         "type": "Microsoft.Common.TextBox",
-                        "label": "SYNTHESIZED_INPUT_USERNAME",
-                        "toolTip": "SYNTHESIZED_INPUT_USERNAME",
+                        "label": "--input-username",
+                        "toolTip": "Input username, default to null",
                         "defaultValue": "",
                         "constraints": {
-                            "required": true,
+                            "required": false,
                             "validationMessage": "Value is incorrect",
                             "regex": ".*"
                         }
                     },
                     {
                         "name": "SYNTHESIZED_INPUT_PASSWORD",
-                        "type": "Microsoft.Common.TextBox",
-                        "label": "SYNTHESIZED_INPUT_PASSWORD",
-                        "toolTip": "SYNTHESIZED_INPUT_PASSWORD",
-                        "defaultValue": "",
+                        "type": "Microsoft.Common.PasswordBox",
+                        "label": {
+                            "password": "--input-password",
+                            "confirmPassword": ""
+                        },
+                        "toolTip": "Input password, default to null",
                         "constraints": {
-                            "required": true,
+                            "required": false,
                             "validationMessage": "Value is incorrect",
                             "regex": ".*"
+                        },
+                        "options": {
+                            "hideConfirmation": true
                         }
                     },
                     {
                         "name": "SYNTHESIZED_OUTPUT_URL",
                         "type": "Microsoft.Common.TextBox",
-                        "label": "SYNTHESIZED_OUTPUT_URL",
-                        "toolTip": "SYNTHESIZED_OUTPUT_URL",
+                        "label": "--output-url",
+                        "toolTip": "JDBC URL for the OUTPUT database",
                         "defaultValue": "",
                         "constraints": {
-                            "required": true,
+                            "required": false,
                             "validationMessage": "Value is incorrect",
                             "regex": ".*"
                         }
@@ -271,21 +276,88 @@
                     {
                         "name": "SYNTHESIZED_OUTPUT_USERNAME",
                         "type": "Microsoft.Common.TextBox",
-                        "label": "SYNTHESIZED_OUTPUT_USERNAME",
-                        "toolTip": "SYNTHESIZED_OUTPUT_USERNAME",
+                        "label": "--output-username",
+                        "toolTip": "Output username, default to null",
                         "defaultValue": "",
                         "constraints": {
-                            "required": true,
+                            "required": false,
                             "validationMessage": "Value is incorrect",
                             "regex": ".*"
                         }
                     },
                     {
                         "name": "SYNTHESIZED_OUTPUT_PASSWORD",
+                        "type": "Microsoft.Common.PasswordBox",
+                        "label": {
+                            "password": "--output-password",
+                            "confirmPassword": ""
+                        },
+                        "toolTip": "Output password, default to null",
+                        "constraints": {
+                            "required": false,
+                            "validationMessage": "Value is incorrect",
+                            "regex": ".*"
+                        },
+                        "options": {
+                            "hideConfirmation": true
+                        }
+                    },
+                    {
+                        "name": "SYNTHESIZED_USERCONFIG",
                         "type": "Microsoft.Common.TextBox",
-                        "label": "SYNTHESIZED_OUTPUT_PASSWORD",
-                        "toolTip": "SYNTHESIZED_OUTPUT_PASSWORD",
+                        "label": "--config",
+                        "toolTip": "Configuration file path",
                         "defaultValue": "",
+                        "multiLine": true,
+                        "constraints": {
+                            "required": false,
+                            "validationMessage": "Value is incorrect",
+                            "regex": ".*"
+                        }
+                    },
+                    {
+                        "name": "SYNTHESIZED_USERCONFIG_FILE",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "--config-file",
+                        "toolTip": "Configuration YAML",
+                        "defaultValue": "",
+                        "constraints": {
+                            "required": false,
+                            "validationMessage": "Value is incorrect",
+                            "regex": ".*"
+                        }
+                    },
+                    {
+                        "name": "SYNTHESIZED_INVENTORY",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "--inventory",
+                        "toolTip": "Inventory YAML",
+                        "defaultValue": "",
+                        "multiLine": true,
+                        "constraints": {
+                            "required": false,
+                            "validationMessage": "Value is incorrect",
+                            "regex": ".*"
+                        }
+                    },
+                    {
+                        "name": "SYNTHESIZED_INVENTORY_FILE",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "--inventory-file",
+                        "toolTip": "Inventory YAML with information about using data sources",
+                        "defaultValue": "",
+                        "constraints": {
+                            "required": false,
+                            "validationMessage": "Value is incorrect",
+                            "regex": ".*"
+                        }
+                    },
+                    {
+                        "name": "schedule",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Schedule fetch time (never by default)",
+                        "toolTip": "More information at: https://crontab.guru/#*_*_31_2_*",
+                        "defaultValue": "* * 31 2 *",
                         "constraints": {
                             "required": true,
                             "validationMessage": "Value is incorrect",
@@ -310,7 +382,12 @@
             "SYNTHESIZED_INPUT_PASSWORD": "[steps('applicationDetails').SYNTHESIZED_INPUT_PASSWORD",
             "SYNTHESIZED_OUTPUT_URL": "[steps('applicationDetails').SYNTHESIZED_OUTPUT_URL",
             "SYNTHESIZED_OUTPUT_USERNAME": "[steps('applicationDetails').SYNTHESIZED_OUTPUT_USERNAME",
-            "SYNTHESIZED_OUTPUT_PASSWORD": "[steps('applicationDetails').SYNTHESIZED_OUTPUT_PASSWORD"
+            "SYNTHESIZED_OUTPUT_PASSWORD": "[steps('applicationDetails').SYNTHESIZED_OUTPUT_PASSWORD",
+            "SYNTHESIZED_USERCONFIG": "[steps('applicationDetails').SYNTHESIZED_USERCONFIG_FILE",
+            "SYNTHESIZED_USERCONFIG_FILE": "[steps('applicationDetails').SYNTHESIZED_USERCONFIG_FILE",
+            "SYNTHESIZED_INVENTORY": "[steps('applicationDetails').SYNTHESIZED_INVENTORY",
+            "SYNTHESIZED_INVENTORY_FILE": "[steps('applicationDetails').SYNTHESIZED_INVENTORY_FILE",
+            "schedule": "[steps('applicationDetails').schedule"
         }
     }
 }

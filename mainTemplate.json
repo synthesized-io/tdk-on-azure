@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2022-11-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "extensionResourceName": {
@@ -9,40 +9,40 @@
             }
         },
         "clusterResourceName": {
-            "type": "String",
+            "type": "string",
             "metadata": {
                 "description": "The name of the Managed Cluster resource."
             }
         },
         "createNewCluster": {
-            "type": "Bool",
+            "type": "bool",
             "defaultValue": true,
             "metadata": {
                 "description": "When set to 'true', creates new AKS cluster. Otherwise, an existing cluster is used."
             }
         },
         "location": {
-            "type": "String",
+            "type": "string",
             "metadata": {
                 "description": "The location of AKS resource."
             }
         },
         "vmSize": {
-            "type": "String",
+            "type": "string",
             "defaultValue": "Standard_DS2_v2",
             "metadata": {
                 "description": "VM size"
             }
         },
         "vmEnableAutoScale": {
-            "type": "Bool",
+            "type": "bool",
             "defaultValue": true,
             "metadata": {
                 "description": "enable auto scaling"
             }
         },
         "vmCount": {
-            "type": "Int",
+            "type": "int",
             "defaultValue": 3,
             "metadata": {
                 "description": "VM count"
@@ -50,7 +50,7 @@
         },
         "dnsPrefix": {
             "defaultValue": "[concat(parameters('clusterResourceName'),'-dns')]",
-            "type": "String",
+            "type": "string",
             "metadata": {
                 "description": "Optional DNS prefix to use with hosted Kubernetes API server FQDN."
             }
@@ -59,13 +59,13 @@
             "defaultValue": 0,
             "minValue": 0,
             "maxValue": 1023,
-            "type": "Int",
+            "type": "int",
             "metadata": {
                 "description": "Disk size (in GiB) to provision for each of the agent pool nodes. This value ranges from 0 to 1023. Specifying 0 will apply the default disk size for that agentVMSize."
             }
         },
         "kubernetesVersion": {
-            "type": "String",
+            "type": "string",
             "defaultValue": "1.26.3",
             "metadata": {
                 "description": "The version of Kubernetes."
@@ -74,49 +74,49 @@
         "networkPlugin": {
             "defaultValue": "kubenet",
             "allowedValues": ["azure", "kubenet"],
-            "type": "String",
+            "type": "string",
             "metadata": {
                 "description": "Network plugin used for building Kubernetes network."
             }
         },
         "enableRBAC": {
             "defaultValue": true,
-            "type": "Bool",
+            "type": "bool",
             "metadata": {
                 "description": "Boolean flag to turn on and off of RBAC."
             }
         },
         "enablePrivateCluster": {
             "defaultValue": false,
-            "type": "Bool",
+            "type": "bool",
             "metadata": {
                 "description": "Enable private network access to the Kubernetes cluster."
             }
         },
         "enableHttpApplicationRouting": {
             "defaultValue": true,
-            "type": "Bool",
+            "type": "bool",
             "metadata": {
                 "description": "Boolean flag to turn on and off http application routing."
             }
         },
         "enableAzurePolicy": {
             "defaultValue": false,
-            "type": "Bool",
+            "type": "bool",
             "metadata": {
                 "description": "Boolean flag to turn on and off Azure Policy addon."
             }
         },
         "enableSecretStoreCSIDriver": {
             "defaultValue": false,
-            "type": "Bool",
+            "type": "bool",
             "metadata": {
                 "description": "Boolean flag to turn on and off secret store CSI driver."
             }
         },
         "osSKU": {
             "type": "string",
-            "defaultValue": "azurelinux",
+            "defaultValue": "AzureLinux",
             "allowedValues": ["AzureLinux", "Ubuntu"],
             "metadata": {
                 "description": "The Linux SKU to use."
@@ -217,12 +217,17 @@
                 "autoUpgradeMinorVersion": true,
                 "releaseTrain": "[variables('releaseTrain')]",
                 "configurationSettings": {
-                    "SYNTHESIZED_INPUT_URL": "[parameters('SYNTHESIZED_INPUT_URL')]",
-                    "SYNTHESIZED_INPUT_USERNAME": "[parameters('SYNTHESIZED_INPUT_USERNAME')]",
-                    "SYNTHESIZED_INPUT_PASSWORD": "[parameters('SYNTHESIZED_INPUT_PASSWORD')]",
-                    "SYNTHESIZED_OUTPUT_URL": "[parameters('SYNTHESIZED_OUTPUT_URL')]",
-                    "SYNTHESIZED_OUTPUT_USERNAME": "[parameters('SYNTHESIZED_OUTPUT_USERNAME')]",
-                    "SYNTHESIZED_OUTPUT_PASSWORD": "[parameters('SYNTHESIZED_OUTPUT_PASSWORD')]"
+                    "env.SYNTHESIZED_INPUT_URL": "[parameters('SYNTHESIZED_INPUT_URL')]",
+                    "env.SYNTHESIZED_INPUT_USERNAME": "[parameters('SYNTHESIZED_INPUT_USERNAME')]",
+                    "envRenderSecret.SYNTHESIZED_INPUT_PASSWORD": "[parameters('SYNTHESIZED_INPUT_PASSWORD')]",
+                    "env.SYNTHESIZED_OUTPUT_URL": "[parameters('SYNTHESIZED_OUTPUT_URL')]",
+                    "env.SYNTHESIZED_OUTPUT_USERNAME": "[parameters('SYNTHESIZED_OUTPUT_USERNAME')]",
+                    "envRenderSecret.SYNTHESIZED_OUTPUT_PASSWORD": "[parameters('SYNTHESIZED_OUTPUT_PASSWORD')]",
+                    "env.SYNTHESIZED_USERCONFIG": "[parameters('SYNTHESIZED_USERCONFIG')]",
+                    "env.SYNTHESIZED_USERCONFIG_FILE": "[parameters('SYNTHESIZED_USERCONFIG_FILE')]",
+                    "envRenderSecret.SYNTHESIZED_INVENTORY": "[parameters('SYNTHESIZED_INVENTORY')]",
+                    "env.SYNTHESIZED_INVENTORY_FILE": "[parameters('SYNTHESIZED_INVENTORY_FILE')]",
+                    "schedule": "[parameters('schedule')]"
                 },
                 "configurationProtectedSettings": {}
             },
