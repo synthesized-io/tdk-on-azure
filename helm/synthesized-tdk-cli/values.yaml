@@ -38,11 +38,7 @@ containerSecurityContext: {}
 
 resources:
   limits:
-    cpu: 8
-    memory:
   requests:
-    cpu: 1
-    memory:
 
 
 nodeSelector: {}
