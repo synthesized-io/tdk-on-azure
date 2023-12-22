@@ -38,10 +38,10 @@ containerSecurityContext: {}
 
 resources:
   limits:
-    cpu:
+    cpu: 8
     memory:
   requests:
-    cpu:
+    cpu: 1
     memory:
 
 
@@ -95,12 +95,6 @@ cronJobPodLabels: { }
 # https://kubernetes.io/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically
 # Note: AWS marketplace hourly-billing depends on the Pod lifetime.
 ttlSecondsAfterFinished: 60
-
-resources:
-  requests:
-    cpu: 1
-  limits:
-    cpu: 2
     
 global:
   azure:
