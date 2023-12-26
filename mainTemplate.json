@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2022-11-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "extensionResourceName": {
@@ -227,6 +227,7 @@
                     "env.SYNTHESIZED_USERCONFIG_FILE": "[parameters('SYNTHESIZED_USERCONFIG_FILE')]",
                     "envRenderSecret.SYNTHESIZED_INVENTORY": "[parameters('SYNTHESIZED_INVENTORY')]",
                     "env.SYNTHESIZED_INVENTORY_FILE": "[parameters('SYNTHESIZED_INVENTORY_FILE')]",
+                    "envRenderSecret.SYNTHESIZED_KEY": "[parameters('SYNTHESIZED_KEY')]",
                     "schedule": "[parameters('schedule')]"
                 },
                 "configurationProtectedSettings": {}

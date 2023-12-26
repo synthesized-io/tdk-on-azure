@@ -317,15 +317,20 @@
                     },
                     {
                         "name": "SYNTHESIZED_USERCONFIG_FILE",
-                        "type": "Microsoft.Common.TextBox",
+                        "type": "Microsoft.Common.FileUpload",
                         "label": "--config-file",
                         "toolTip": "Configuration YAML",
-                        "defaultValue": "",
                         "constraints": {
                             "required": false,
-                            "validationMessage": "Value is incorrect",
-                            "regex": ".*"
-                        }
+                            "accept": ".txt,.json,.yaml,yml"
+                        },
+                        "options": {
+                            "multiple": false,
+                            "uploadMode": "file",
+                            "openMode": "text",
+                            "encoding": "UTF-8"
+                        },
+                        "visible": true
                     },
                     {
                         "name": "SYNTHESIZED_INVENTORY",
@@ -342,15 +347,20 @@
                     },
                     {
                         "name": "SYNTHESIZED_INVENTORY_FILE",
-                        "type": "Microsoft.Common.TextBox",
-                        "label": "--inventory-file",
-                        "toolTip": "Inventory YAML with information about using data sources",
-                        "defaultValue": "",
+                        "type": "Microsoft.Common.FileUpload",
+                        "label": "--config-file",
+                        "toolTip": "Configuration YAML",
                         "constraints": {
                             "required": false,
-                            "validationMessage": "Value is incorrect",
-                            "regex": ".*"
-                        }
+                            "accept": ".txt,.json,.yaml,yml"
+                        },
+                        "options": {
+                            "multiple": false,
+                            "uploadMode": "file",
+                            "openMode": "text",
+                            "encoding": "UTF-8"
+                        },
+                        "visible": true
                     },
                     {
                         "name": "schedule",
@@ -362,6 +372,23 @@
                             "required": true,
                             "validationMessage": "Value is incorrect",
                             "regex": ".*"
+                        }
+                    },
+                    {
+                        "name": "SYNTHESIZED_KEY",
+                        "type": "Microsoft.Common.PasswordBox",
+                        "label": {
+                            "password": "Synthesized licence key",
+                            "confirmPassword": ""
+                        },
+                        "toolTip": "Synthesized licence key",
+                        "constraints": {
+                            "required": false,
+                            "validationMessage": "Value is incorrect",
+                            "regex": ".*"
+                        },
+                        "options": {
+                            "hideConfirmation": true
                         }
                     }
                 ]
@@ -387,6 +414,7 @@
             "SYNTHESIZED_USERCONFIG_FILE": "[steps('applicationDetails').SYNTHESIZED_USERCONFIG_FILE",
             "SYNTHESIZED_INVENTORY": "[steps('applicationDetails').SYNTHESIZED_INVENTORY",
             "SYNTHESIZED_INVENTORY_FILE": "[steps('applicationDetails').SYNTHESIZED_INVENTORY_FILE",
+            "SYNTHESIZED_KEY": "[steps('applicationDetails').SYNTHESIZED_KEY",
             "schedule": "[steps('applicationDetails').schedule"
         }
     }
