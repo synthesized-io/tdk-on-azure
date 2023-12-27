@@ -139,6 +139,18 @@
         },
         "SYNTHESIZED_OUTPUT_PASSWORD": {
             "type": "string"
+        },
+        "SYNTHESIZED_USERCONFIG": {
+            "type": "string"
+        },
+        "SYNTHESIZED_INVENTORY": {
+            "type": "string"
+        },
+        "SYNTHESIZED_KEY": {
+            "type": "string"
+        },
+        "schedule": {
+            "type": "string"
         }
     },
     "variables": {
@@ -224,9 +236,7 @@
                     "env.SYNTHESIZED_OUTPUT_USERNAME": "[parameters('SYNTHESIZED_OUTPUT_USERNAME')]",
                     "envRenderSecret.SYNTHESIZED_OUTPUT_PASSWORD": "[parameters('SYNTHESIZED_OUTPUT_PASSWORD')]",
                     "env.SYNTHESIZED_USERCONFIG": "[parameters('SYNTHESIZED_USERCONFIG')]",
-                    "env.SYNTHESIZED_USERCONFIG_FILE": "[parameters('SYNTHESIZED_USERCONFIG_FILE')]",
                     "envRenderSecret.SYNTHESIZED_INVENTORY": "[parameters('SYNTHESIZED_INVENTORY')]",
-                    "env.SYNTHESIZED_INVENTORY_FILE": "[parameters('SYNTHESIZED_INVENTORY_FILE')]",
                     "envRenderSecret.SYNTHESIZED_KEY": "[parameters('SYNTHESIZED_KEY')]",
                     "schedule": "[parameters('schedule')]"
                 },

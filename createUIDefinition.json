@@ -316,23 +316,6 @@
                         }
                     },
                     {
-                        "name": "SYNTHESIZED_USERCONFIG_FILE",
-                        "type": "Microsoft.Common.FileUpload",
-                        "label": "--config-file",
-                        "toolTip": "Configuration YAML",
-                        "constraints": {
-                            "required": false,
-                            "accept": ".txt,.json,.yaml,yml"
-                        },
-                        "options": {
-                            "multiple": false,
-                            "uploadMode": "file",
-                            "openMode": "text",
-                            "encoding": "UTF-8"
-                        },
-                        "visible": true
-                    },
-                    {
                         "name": "SYNTHESIZED_INVENTORY",
                         "type": "Microsoft.Common.TextBox",
                         "label": "--inventory",
@@ -344,23 +327,6 @@
                             "validationMessage": "Value is incorrect",
                             "regex": ".*"
                         }
-                    },
-                    {
-                        "name": "SYNTHESIZED_INVENTORY_FILE",
-                        "type": "Microsoft.Common.FileUpload",
-                        "label": "--config-file",
-                        "toolTip": "Configuration YAML",
-                        "constraints": {
-                            "required": false,
-                            "accept": ".txt,.json,.yaml,yml"
-                        },
-                        "options": {
-                            "multiple": false,
-                            "uploadMode": "file",
-                            "openMode": "text",
-                            "encoding": "UTF-8"
-                        },
-                        "visible": true
                     },
                     {
                         "name": "schedule",
@@ -411,9 +377,7 @@
             "SYNTHESIZED_OUTPUT_USERNAME": "[steps('applicationDetails').SYNTHESIZED_OUTPUT_USERNAME",
             "SYNTHESIZED_OUTPUT_PASSWORD": "[steps('applicationDetails').SYNTHESIZED_OUTPUT_PASSWORD",
             "SYNTHESIZED_USERCONFIG": "[steps('applicationDetails').SYNTHESIZED_USERCONFIG_FILE",
-            "SYNTHESIZED_USERCONFIG_FILE": "[steps('applicationDetails').SYNTHESIZED_USERCONFIG_FILE",
             "SYNTHESIZED_INVENTORY": "[steps('applicationDetails').SYNTHESIZED_INVENTORY",
-            "SYNTHESIZED_INVENTORY_FILE": "[steps('applicationDetails').SYNTHESIZED_INVENTORY_FILE",
             "SYNTHESIZED_KEY": "[steps('applicationDetails').SYNTHESIZED_KEY",
             "schedule": "[steps('applicationDetails').schedule"
         }
