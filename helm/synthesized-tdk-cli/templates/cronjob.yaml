@@ -44,7 +44,7 @@ spec:
           restartPolicy: {{ .Values.restartPolicy }}
           containers:
             - name: "tdk-cli"
-              image: "{{ .Values.global.azure.images.tdkoffer.registry }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+              image: "{{ .Values.global.azure.images.tdkoffer.registry }}:{{ .Values.global.azure.images.tdkoffer.image }}@{{ .Values.global.azure.images.tdkoffer.digest }}"
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               resources:
               {{- toYaml .Values.resources | nindent 16 }}
