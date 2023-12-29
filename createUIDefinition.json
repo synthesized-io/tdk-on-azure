@@ -370,16 +370,16 @@
             "osSKU": "[steps('clusterDetails').newClusterSection.osSKU]",
             "vmEnableAutoScale": "[steps('clusterDetails').newClusterSection.enableAutoScaling]",
             "vmCount": "[steps('clusterDetails').newClusterSection.vmCount]",
-            "SYNTHESIZED_INPUT_URL": "[steps('applicationDetails').SYNTHESIZED_INPUT_URL",
-            "SYNTHESIZED_INPUT_USERNAME": "[steps('applicationDetails').SYNTHESIZED_INPUT_USERNAME",
-            "SYNTHESIZED_INPUT_PASSWORD": "[steps('applicationDetails').SYNTHESIZED_INPUT_PASSWORD",
-            "SYNTHESIZED_OUTPUT_URL": "[steps('applicationDetails').SYNTHESIZED_OUTPUT_URL",
-            "SYNTHESIZED_OUTPUT_USERNAME": "[steps('applicationDetails').SYNTHESIZED_OUTPUT_USERNAME",
-            "SYNTHESIZED_OUTPUT_PASSWORD": "[steps('applicationDetails').SYNTHESIZED_OUTPUT_PASSWORD",
-            "SYNTHESIZED_USERCONFIG": "[steps('applicationDetails').SYNTHESIZED_USERCONFIG_FILE",
-            "SYNTHESIZED_INVENTORY": "[steps('applicationDetails').SYNTHESIZED_INVENTORY",
-            "SYNTHESIZED_KEY": "[steps('applicationDetails').SYNTHESIZED_KEY",
-            "schedule": "[steps('applicationDetails').schedule"
+            "SYNTHESIZED_INPUT_URL": "[steps('applicationDetails').SYNTHESIZED_INPUT_URL]",
+            "SYNTHESIZED_INPUT_USERNAME": "[steps('applicationDetails').SYNTHESIZED_INPUT_USERNAME]",
+            "SYNTHESIZED_INPUT_PASSWORD": "[steps('applicationDetails').SYNTHESIZED_INPUT_PASSWORD]",
+            "SYNTHESIZED_OUTPUT_URL": "[steps('applicationDetails').SYNTHESIZED_OUTPUT_URL]",
+            "SYNTHESIZED_OUTPUT_USERNAME": "[steps('applicationDetails').SYNTHESIZED_OUTPUT_USERNAME]",
+            "SYNTHESIZED_OUTPUT_PASSWORD": "[steps('applicationDetails').SYNTHESIZED_OUTPUT_PASSWORD]",
+            "SYNTHESIZED_USERCONFIG": "[steps('applicationDetails').SYNTHESIZED_USERCONFIG]",
+            "SYNTHESIZED_INVENTORY": "[steps('applicationDetails').SYNTHESIZED_INVENTORY]",
+            "SYNTHESIZED_KEY": "[steps('applicationDetails').SYNTHESIZED_KEY]",
+            "schedule": "[steps('applicationDetails').schedule]"
         }
     }
 }
