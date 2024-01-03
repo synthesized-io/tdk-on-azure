@@ -208,11 +208,23 @@
                 "label": "Application Details",
                 "elements": [
                     {
+                        "name": "text1",
+                        "type": "Microsoft.Common.TextBlock",
+                        "visible": true,
+                        "options": {
+                            "text": "Please provide the configuration values for your application.",
+                            "link": {
+                                "label": "Learn more",
+                                "uri": "https://docs.synthesized.io/tdk/latest/user_guide/deployment/run_cli_with_azure_aks"
+                            }
+                        }
+                    },
+                    {
                         "name": "extensionResourceName",
                         "type": "Microsoft.Common.TextBox",
                         "label": "Cluster extension resource name",
                         "defaultValue": "",
-                        "toolTip": "Only lowercase alphanumeric characters are allowed, and the value must be 6-30 characters long.",
+                        "toolTip": "The value will be used to create the Kubernetes namespace and resources. Only lowercase alphanumeric characters are allowed, and the value must be 6-30 characters long.",
                         "constraints": {
                             "required": false,
                             "regex": "^[a-z0-9]{6,30}$",
@@ -331,7 +343,7 @@
                     {
                         "name": "schedule",
                         "type": "Microsoft.Common.TextBox",
-                        "label": "Schedule fetch time (never by default)",
+                        "label": "Job launch schedule (never by default)",
                         "toolTip": "More information at: https://crontab.guru/#*_*_31_2_*",
                         "defaultValue": "* * 31 2 *",
                         "constraints": {
@@ -355,6 +367,23 @@
                         },
                         "options": {
                             "hideConfirmation": true
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "userGuide",
+                "label": "User Guide",
+                "elements": [
+                    {
+                        "name": "text1",
+                        "type": "Microsoft.Common.InfoBox",
+                        "visible": true,
+                        "options": {
+                            "icon": "Info",
+                            "text": "After deploying the Synthesized TDK, a corresponding CronJob is automatically created. This CronJob is configured to execute the TDK run based on the specified schedule. If there is a need to run the TDK job manually, you can use the following Kubernetes command:\n\n kubectl create job --from=cronjob/{{ your namespace }}-synthesized-tdk-cron synthesized-tdk -n {{ extension resource name }}\n\nThis command generates a Kubernetes Job named \"synthesized-tdk\" from the existing CronJob in the specified namespace {{ extension resource name }}",
+
+                            "uri": "https://docs.synthesized.io/tdk/latest/user_guide/deployment/run_cli_with_azure_aks"
                         }
                     }
                 ]
