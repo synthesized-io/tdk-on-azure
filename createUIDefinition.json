@@ -381,9 +381,7 @@
                         "visible": true,
                         "options": {
                             "icon": "Info",
-                            "text": "After deploying the Synthesized TDK, a corresponding CronJob is automatically created. This CronJob is configured to execute the TDK run based on the specified schedule. If there is a need to run the TDK job manually, you can use the following Kubernetes command:\n\n kubectl create job --from=cronjob/{{ your namespace }}-synthesized-tdk-cron synthesized-tdk -n {{ extension resource name }}\n\nThis command generates a Kubernetes Job named \"synthesized-tdk\" from the existing CronJob in the specified namespace {{ extension resource name }}",
-
-                            "uri": "https://docs.synthesized.io/tdk/latest/user_guide/deployment/run_cli_with_azure_aks"
+                            "text": "After deploying the Synthesized TDK, a corresponding CronJob is automatically created. This CronJob is configured to execute the TDK run based on the specified schedule. If there is a need to run the TDK job manually, you can use the following Kubernetes command:\n\nRESOURCE_NAME={{ your extension resource namespace }}\nkubectl create job --from=cronjob/${RESOURCE_NAME}-synthesized-tdk-cron synthesized-tdk -n ${RESOURCE_NAME}\n\nThis command generates a Kubernetes Job named \"synthesized-tdk\" from the existing CronJob\nTo see logs for the job run:\n\nkubectl logs -f jobs/synthesized-tdk -n ${RESOURCE_NAME}"
                         }
                     }
                 ]
