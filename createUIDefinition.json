@@ -224,7 +224,7 @@
                         "type": "Microsoft.Common.TextBox",
                         "label": "Cluster extension resource name",
                         "defaultValue": "",
-                        "toolTip": "The value will be used to create the Kubernetes namespace and resources. Only lowercase alphanumeric characters are allowed, and the value must be 6-30 characters long.",
+                        "toolTip": "The value to be used to create the Kubernetes namespace and resources. Only lowercase alphanumeric characters are allowed, and the value must be 6-30 characters long.",
                         "constraints": {
                             "required": false,
                             "regex": "^[a-z0-9]{6,30}$",
