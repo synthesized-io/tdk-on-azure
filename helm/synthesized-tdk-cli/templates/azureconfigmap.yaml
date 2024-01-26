@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "synthesized-tdk.fullname" . }}-azure-configmap
+  labels:
+  {{- include "synthesized-tdk.labels" . | nindent 4 }}
+data:
+  CLIENT_ID: {{ .Values.global.azure.identity.clientId | quote }}
+  RESOURCE_ID: {{ .Values.global.azure.extension.resourceId | quote }}
+  PLAN_ID: {{ .Values.global.azure.marketplace.planId | quote }}

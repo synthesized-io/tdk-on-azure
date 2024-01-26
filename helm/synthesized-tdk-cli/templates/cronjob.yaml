@@ -57,9 +57,8 @@ spec:
                 - name: {{ $key }}
                   value: {{ $val | quote }}
               {{- end }}
-{{/*                For metering-based listing*/}}
-{{/*                - name: TDK_AZURE_LICENSE_ENABLED*/}}
-{{/*                  value: "true"*/}}
+                - name: TDK_AZURE_LICENSE_ENABLED
+                  value: {{ if eq .Values.plan.name "payg" }}"true"{{ else }}"false"{{ end }}
                 - name: TDK_AZURE_ENABLED
                   value: "true"
               envFrom:
@@ -69,6 +68,8 @@ spec:
                   {{- else}}
                     name: {{ include "synthesized-tdk.fullname" . }}-secret
                   {{- end}}
+                - configMapRef:
+                    name: {{ include "synthesized-tdk.fullname" . }}-azure-configmap
 
           {{- with .Values.nodeSelector }}
           nodeSelector:

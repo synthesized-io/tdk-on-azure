@@ -344,8 +344,8 @@
                         "name": "schedule",
                         "type": "Microsoft.Common.TextBox",
                         "label": "Job launch schedule (never by default)",
-                        "toolTip": "More information at: https://crontab.guru/#*_*_31_2_*",
-                        "defaultValue": "* * 31 2 *",
+                        "toolTip": "More information at: https://crontab.guru/#0_0_31_2_*",
+                        "defaultValue": "0 0 31 2 *",
                         "constraints": {
                             "required": true,
                             "validationMessage": "Value is incorrect",
@@ -356,10 +356,10 @@
                         "name": "SYNTHESIZED_KEY",
                         "type": "Microsoft.Common.PasswordBox",
                         "label": {
-                            "password": "Synthesized licence key",
+                            "password": "Synthesized licence key (Only for the BYOL plan)",
                             "confirmPassword": ""
                         },
-                        "toolTip": "Synthesized licence key",
+                        "toolTip": "Synthesized licence key. Not required for the PAYG plan",
                         "constraints": {
                             "required": false,
                             "validationMessage": "Value is incorrect",
