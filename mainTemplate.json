@@ -238,7 +238,8 @@
                     "env.SYNTHESIZED_USERCONFIG": "[parameters('SYNTHESIZED_USERCONFIG')]",
                     "envRenderSecret.SYNTHESIZED_INVENTORY": "[parameters('SYNTHESIZED_INVENTORY')]",
                     "envRenderSecret.SYNTHESIZED_KEY": "[parameters('SYNTHESIZED_KEY')]",
-                    "schedule": "[parameters('schedule')]"
+                    "schedule": "[parameters('schedule')]",
+                    "plan.name": "[variables('plan-name')]"
                 },
                 "configurationProtectedSettings": {}
             },

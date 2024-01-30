@@ -91,9 +91,21 @@ cronJobPodLabels: { }
 # https://kubernetes.io/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically
 # Note: AWS marketplace hourly-billing depends on the Pod lifetime.
 ttlSecondsAfterFinished: 60
+
+plan:
+  name: "DONOTMODIFY"
     
 global:
   azure:
+    identity:
+      # Application's Managed Service Identity (MSI) Client ID. ClientID can be used to generate authentication token to communicate to external services like Microsoft Marketplace Metering API
+      clientId: "DONOTMODIFY" # Azure populates this value at deployment time
+    marketplace:
+      # id of the plan purchased for the Azure Marketplace Kubernetes application,to be used in usage event payload to metering api, for more information please refer: https://learn.microsoft.com/en-us/partner-center/marketplace/marketplace-metering-service-apis
+      planId: "DONOTMODIFY" # Azure populates this value at deployment time
+    extension:
+      # resource id of the Azure Marketplace Kubernetes application,to be used in usage event payload to metering api, for more information please refer: https://learn.microsoft.com/en-us/partner-center/marketplace/marketplace-metering-service-apis
+      resourceId: "DONOTMODIFY" # application's Azure Resource ID, Azure populates this value at deployment time
     images:
       tdkoffer:
         digest: sha256:b9cab66445aece92b00d88865cca7bc1984c5f7912b36ee692841d6e47c3c401
