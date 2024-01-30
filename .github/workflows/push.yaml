@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  workflow_dispatch: {}
+  push:
+    tags:
+      - '*'
+    branches:
+      - 'ci'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-push-cnab:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/container-package-app:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build and push CNAB
+        run: |
+          az login --service-principal -u ghaCiPrincipal -p ${{ secrets.AZURE_ACR_PASSWORD }} --tenant e8414273-5932-45e8-b8cc-97eb276f0a43
+          az acr login --name tdkk8soffer
+          cpa verify
+          cpa buildbundle
