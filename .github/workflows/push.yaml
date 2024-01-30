@@ -23,6 +23,7 @@ jobs:
 
       - name: Build and push CNAB
         run: |
-          docker login tdkk8soffer.azurecr.io --username ${{ secrets.AZURE_ACR_USERNAME }} --password ${{ secrets.AZURE_ACR_PASSWORD }}
+          az login --service-principal --username ${{ secrets.AZURE_PRINCIPAL_NAME }} --tenant ${{ secrets.AZURE_TENANT_ID }}  --password ${{ secrets.AZURE_CERTIFICATE }}
+          az acr login --name tdkk8soffer
           cpa verify
           cpa buildbundle
