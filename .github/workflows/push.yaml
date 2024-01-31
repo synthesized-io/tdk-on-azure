@@ -23,10 +23,7 @@ jobs:
 
       - name: Build and push CNAB
         run: |
-          pwd
-          ls -r
           echo "${{ secrets.AZURE_CERTIFICATE }}" > cert.pem
           az login --service-principal --username ${{ secrets.AZURE_APP_ID }} --tenant ${{ secrets.AZURE_TENANT_ID }}  --password cert.pem
           az acr login --name tdkk8soffer
-          cpa verify
           cpa buildbundle
