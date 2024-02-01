@@ -21,10 +21,10 @@ jobs:
 
       - name: Build and push CNAB
         run: |
-          docker run -t -v $(pwd):/app -v /var/run/docker.sock:/var/run/docker.sock --name cpa-tool mcr.microsoft.com/container-package-app:latest /bin/sh -c "
+          docker run -t -v $(pwd):/app -v /var/run/docker.sock:/var/run/docker.sock --name cpa-tool mcr.microsoft.com/container-package-app:latest /bin/sh -c "\
             cd app; \
-            echo "${{ secrets.AZURE_CERTIFICATE }}" > cert.pem; \
+            echo \"${{ secrets.AZURE_CERTIFICATE }}\" > cert.pem; \
             az login --service-principal --username ${{ secrets.AZURE_APP_ID }} --tenant ${{ secrets.AZURE_TENANT_ID }}  --password cert.pem; \
-            az acr login --name tdkk8soffer \
-            cpa buildbundle
+            az acr login --name tdkk8soffer; \
+            cpa buildbundle\
           "
