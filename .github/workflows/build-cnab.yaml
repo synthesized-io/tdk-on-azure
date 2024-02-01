@@ -15,8 +15,6 @@ concurrency:
 jobs:
   build-and-push-cnab:
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/container-package-app:latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
