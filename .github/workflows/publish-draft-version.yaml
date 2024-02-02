@@ -42,8 +42,11 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Set TDK image digest
-        id: set_tdk_image
-        run: echo "digest=$(az acr repository show --name ${{ env.AZURE_REGISTRY }} --image tdkcli:v"${{ env.RELEASE_VERSION }}" | jq ."digest")" >> $GITHUB_OUTPUT
+        uses: azure/CLI@v1
+        with:
+          azcliversion: latest
+          inlineScript: |
+            echo "digest=$(az acr repository show --name ${{ env.AZURE_REGISTRY }} --image tdkcli:v"${{ env.RELEASE_VERSION }}" | jq ."digest")" >> $GITHUB_OUTPUT
 
       - name: Update TDK digest in values.yaml
         uses: rmeneely/update-yaml@v1
@@ -112,10 +115,11 @@ jobs:
           echo "AUTH_TOKEN=$(./get_auth_token.sh)" >> $GITHUB_ENV
 
       - name: Set CNAB digest
-        run: |
-          echo ${{ secrets.AZURE_CERTIFICATE }} > cert.pem;
-          az login --service-principal --username ${{ secrets.AZURE_APP_ID }} --tenant ${{ secrets.AZURE_TENANT_ID }}  --password cert.pem;
-          echo "CNAB_DIGEST=$(az acr repository show --name ${{ env.AZURE_REGISTRY }} --image ${{ env.REPOSITORY_NAME }}:v"${{ env.RELEASE_VERSION }}" | jq ."digest")" >> $GITHUB_ENV
+        uses: azure/CLI@v1
+        with:
+          azcliversion: latest
+          inlineScript: |
+            echo "CNAB_DIGEST=$(az acr repository show --name ${{ env.AZURE_REGISTRY }} --image ${{ env.REPOSITORY_NAME }}:v"${{ env.RELEASE_VERSION }}" | jq ."digest")" >> $GITHUB_ENV
 
       - name: Update PAYG version
         working-directory: deploy
