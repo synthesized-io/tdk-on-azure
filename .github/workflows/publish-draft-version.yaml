@@ -1,0 +1,129 @@
+name: Publish Draft Version
+
+on:
+  push:
+    branches:
+      - "ci"
+#  workflow_dispatch:
+#    inputs:
+#      release-version:
+#        description: 'Release version in format: 1.x.x'
+#        required: true
+#        type: string
+
+env:
+#  RELEASE_VERSION: ${{ inputs.release-version }}
+  RELEASE_VERSION: v1.41.0
+  AZURE_REGISTRY: "tdkk8soffer"
+  SUBSCRIPTION_ID: "40b294ab-15d4-4a8a-a2ff-737a53d25a2f"
+  RESOURCE_GROUP: "tdk-k8s-offer"
+  PRODUCT_ID: "d2da9e3f-fcf7-4950-9579-401d67364491"
+  REPOSITORY_NAME: "com.synthesized.tdk"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  set-new-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Print version
+        run: |
+          echo "${{ env.RELEASE_VERSION }}"
+
+      - name: Set TDK image digest
+        id: set_tdk_image
+        run: |
+          echo ${{ secrets.AZURE_CERTIFICATE }} > cert.pem;
+          az login --service-principal --username ${{ secrets.AZURE_APP_ID }} --tenant ${{ secrets.AZURE_TENANT_ID }}  --password cert.pem;
+          echo "digest=$(az acr repository show --name ${{ env.AZURE_REGISTRY }} --image tdkcli:v"${{ env.RELEASE_VERSION }}" | jq ."digest")" >> $GITHUB_OUTPUT
+
+      - name: Update TDK digest in values.yaml
+        uses: rmeneely/update-yaml@v1
+        with:
+          infile: ./helm/synthesized-tdk-cli/values.yaml
+          varlist: "global.azure.images.tdkoffer.digest='v${{ steps.set_tdk_image.digest }}'"
+
+      - name: Update TDK version in manifest.yaml
+        uses: rmeneely/update-yaml@v1
+        with:
+          infile: ./manifest.yaml
+          varlist: "version='v${{ env.RELEASE_VERSION }}'"
+
+      - name: Commit changes to master branch
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          new_branch: test-ci
+
+  build-and-push-cnab:
+    runs-on: ubuntu-latest
+    needs: set-new-version
+    steps:
+      - uses: actions/checkout@v4.1.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set aut token
+        id: set_auth
+        run: |
+          echo "token=$(az acr repository show --name ${{ env.AZURE_REGISTRY }} --image tdkcli:v"${{ env.RELEASE_VERSION }}" | jq ."digest")" >> $GITHUB_OUTPUT
+
+      - name: Build and push CNAB
+        run: |
+          docker run -t -v $(pwd):/app -v /var/run/docker.sock:/var/run/docker.sock --name cpa-tool mcr.microsoft.com/container-package-app:latest /bin/sh -c "\
+            cd app; \
+            echo \"${{ secrets.AZURE_CERTIFICATE }}\" > cert.pem; \
+            az login --service-principal --username ${{ secrets.AZURE_APP_ID }} --tenant ${{ secrets.AZURE_TENANT_ID }}  --password cert.pem; \
+            az acr login --name ${{ env.AZURE_REGISTRY }}; \
+            cpa buildbundle \
+          "
+
+  publish-draft-version:
+    runs-on: ubuntu-latest
+    needs: build-and-push-cnab
+    steps:
+      - uses: actions/checkout@v4.1.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set env variables
+        run: |
+          echo "TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" >> $GITHUB_ENV
+          echo "SUBSCRIPTION_ID=${{ env.SUBSCRIPTION_ID }}" >> $GITHUB_ENV
+          echo "RESOURCE_GROUP=${{ env.RESOURCE_GROUP }}" >> $GITHUB_ENV
+          echo "PRODUCT_ID=${{ env.PRODUCT_ID }}" >> $GITHUB_ENV
+          echo "REGISTRY_NAME=${{ env.REGISTRY_NAME }}" >> $GITHUB_ENV
+          echo "REPOSITORY_NAME=${{ env.REPOSITORY_NAME }}" >> $GITHUB_ENV
+          echo "CNAB_TAG=${{ env.RELEASE_VERSION }}" >> $GITHUB_ENV
+          echo "AZURE_CLIENT_ID=${{ env.AZURE_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "AZURE_CLIENT_SECRET=${{ env.AZURE_CLIENT_SECRET }}" >> $GITHUB_ENV
+
+      - name: Set auth token
+        working-directory: deploy
+        run: |
+          echo "AUTH_TOKEN=$(./get_auth_token.sh)" >> $GITHUB_ENV
+
+      - name: Set CNAB digest
+        run: |
+          echo ${{ secrets.AZURE_CERTIFICATE }} > cert.pem;
+          az login --service-principal --username ${{ secrets.AZURE_APP_ID }} --tenant ${{ secrets.AZURE_TENANT_ID }}  --password cert.pem;
+          echo "CNAB_DIGEST=$(az acr repository show --name ${{ env.AZURE_REGISTRY }} --image ${{ env.REPOSITORY_NAME }}:v"${{ env.RELEASE_VERSION }}" | jq ."digest")" >> $GITHUB_ENV
+
+      - name: Update PAYG version
+        working-directory: deploy
+        run: |
+          echo "PLAN_ID=2f65f546-c98b-4579-8bae-eb5e3bf6f898" >> $GITHUB_ENV
+          echo "PLAN_NAME=synthesizedio.payg" >> $GITHUB_ENV
+          job_id=$(./update_cnab.sh)
+          . ./wait_for_request_result.sh && wait_for_result "$job_id" "${{ env.ACCESS_TOKEN }}"
+
+#      - name: Publish draft version
+#        working-directory: deploy
+#        run: |
+#          ./publish_draft_version.sh
