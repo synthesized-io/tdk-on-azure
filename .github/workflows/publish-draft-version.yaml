@@ -115,9 +115,10 @@ jobs:
 
       - name: Update PAYG version
         working-directory: deploy
+        env:
+          PLAN_ID: "2f65f546-c98b-4579-8bae-eb5e3bf6f898"
+          PLAN_NAME: "synthesizedio.payg"
         run: |
-          echo "PLAN_ID=2f65f546-c98b-4579-8bae-eb5e3bf6f898" >> $GITHUB_ENV
-          echo "PLAN_NAME=synthesizedio.payg" >> $GITHUB_ENV
           job_id=$(./update_cnab.sh)
           . ./wait_for_request_result.sh && wait_for_result "$job_id" "${{ env.ACCESS_TOKEN }}"
 
