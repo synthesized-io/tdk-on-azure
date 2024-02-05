@@ -102,7 +102,7 @@ jobs:
       - name: Set auth token
         working-directory: deploy
         run: |
-          response=$(./update_cnab.sh)
+          response=$(./get_access_token.sh)
           echo "$response"
           ACCESS_TOKEN=$(jq -r '.access_token' <<< "$response")
           echo "ACCESS_TOKEN=$ACCESS_TOKEN" >> $GITHUB_ENV
