@@ -93,7 +93,7 @@ jobs:
           echo "SUBSCRIPTION_ID=${{ env.SUBSCRIPTION_ID }}" >> $GITHUB_ENV
           echo "RESOURCE_GROUP=${{ env.RESOURCE_GROUP }}" >> $GITHUB_ENV
           echo "PRODUCT_ID=${{ env.PRODUCT_ID }}" >> $GITHUB_ENV
-          echo "REGISTRY_NAME=${{ env.REGISTRY_NAME }}" >> $GITHUB_ENV
+          echo "REGISTRY_NAME=${{ env.AZURE_REGISTRY }}" >> $GITHUB_ENV
           echo "REPOSITORY_NAME=${{ env.REPOSITORY_NAME }}" >> $GITHUB_ENV
           echo "CNAB_TAG=${{ env.RELEASE_VERSION }}" >> $GITHUB_ENV
           echo "AZURE_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}" >> $GITHUB_ENV
