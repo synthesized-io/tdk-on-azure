@@ -40,24 +40,25 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Set TDK image digest
-        id: set_tdk_image
         uses: azure/CLI@v1.0.9
         with:
           azcliversion: latest
           inlineScript: |
-            echo "digest=$(az acr repository show --name ${{ env.AZURE_REGISTRY }} --image tdkcli:${{ env.RELEASE_VERSION }} | jq .digest)" >> $GITHUB_OUTPUT
+            DIGEST=$(az acr repository show --name ${{ env.AZURE_REGISTRY }} --image tdkcli:${{ env.RELEASE_VERSION }} | jq .digest))
+            echo "$DIGEST"
+            echo "TDK_DIGEST=$DIGEST" >> $GITHUB_ENV
 
       - name: Update TDK digest in values.yaml
         uses: rmeneely/update-yaml@v1
         with:
           infile: ./helm/synthesized-tdk-cli/values.yaml
-          varlist: "global.azure.images.tdkoffer.digest='${{ steps.set_tdk_image.digest }}'"
+          varlist: "global.azure.images.tdkoffer.digest=${{ env.TDK_DIGEST }}"
 
       - name: Update TDK version in manifest.yaml
         uses: rmeneely/update-yaml@v1
         with:
           infile: ./manifest.yaml
-          varlist: "version='${{ env.RELEASE_VERSION }}'"
+          varlist: "version=${{ env.RELEASE_VERSION }}"
 
       - name: Commit changes to master branch
         uses: EndBug/add-and-commit@v9
@@ -108,7 +109,9 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            echo "CNAB_DIGEST=$(az acr repository show --name ${{ env.AZURE_REGISTRY }} --image ${{ env.REPOSITORY_NAME }}:${{ env.RELEASE_VERSION }} | jq .digest)" >> $GITHUB_ENV
+            DIGEST=$(az acr repository show --name ${{ env.AZURE_REGISTRY }} --image ${{ env.REPOSITORY_NAME }}:${{ env.RELEASE_VERSION }} | jq .digest)
+            echo "$DIGEST"
+            echo "CNAB_DIGEST=$DIGEST" >> $GITHUB_ENV
 
       - name: Update PAYG version
         working-directory: deploy
