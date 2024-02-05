@@ -33,7 +33,7 @@ echo '{
                "registryName": "'"$REGISTRY_NAME"'",
                "repositoryName": "'"$REPOSITORY_NAME"'",
                "tag": "'"$CNAB_TAG"'",
-               "digest": "'"$CNAB_DIGEST"'"
+               "digest": '"$CNAB_DIGEST"'
              }
            ]
          }
@@ -61,7 +61,7 @@ curl -X POST 'https://graph.microsoft.com/rp/product-ingestion/configure?$versio
           "registryName": "'"$REGISTRY_NAME"'",
           "repositoryName": "'"$REPOSITORY_NAME"'",
           "tag": "'"$CNAB_TAG"'",
-          "digest": "'"$CNAB_DIGEST"'"
+          "digest": '"$CNAB_DIGEST"'
         }
       ]
     }
