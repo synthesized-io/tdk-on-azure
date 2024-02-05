@@ -44,7 +44,7 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            DIGEST=$(az acr repository show --name ${{ env.AZURE_REGISTRY }} --image tdkcli:${{ env.RELEASE_VERSION }} | jq .digest))
+            DIGEST=$(az acr repository show --name ${{ env.AZURE_REGISTRY }} --image tdkcli:${{ env.RELEASE_VERSION }} | jq .digest)
             echo "$DIGEST"
             echo "TDK_DIGEST=$DIGEST" >> $GITHUB_ENV
 
