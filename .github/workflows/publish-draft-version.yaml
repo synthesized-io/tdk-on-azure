@@ -120,6 +120,7 @@ jobs:
           PLAN_NAME: "synthesizedio.payg"
         run: |
           job_id=$(./update_cnab.sh)
+          echo "$job_id"
           . ./wait_for_request_result.sh && wait_for_result "$job_id" "${{ env.ACCESS_TOKEN }}"
 
 #      - name: Publish draft version
