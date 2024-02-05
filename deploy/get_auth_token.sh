@@ -12,4 +12,4 @@ curl -X POST "https://login.microsoftonline.com/${TENANT_ID}/oauth2/v2.0/token" 
 	-d "grant_type=client_credentials" \
 	-d "client_id=${AZURE_CLIENT_ID}" \
 	-d "client_secret=${AZURE_CLIENT_SECRET}" \
-	-d "scope=https://graph.microsoft.com/.default" | jq .access_token
+	-d "scope=https://graph.microsoft.com/.default"

@@ -102,7 +102,10 @@ jobs:
       - name: Set auth token
         working-directory: deploy
         run: |
-          echo "ACCESS_TOKEN=$(./get_auth_token.sh)" >> $GITHUB_ENV
+          response=$(./update_cnab.sh)
+          echo "$response"
+          ACCESS_TOKEN=$(jq -r '.access_token' <<< "$response")
+          echo "ACCESS_TOKEN=$ACCESS_TOKEN" >> $GITHUB_ENV
 
       - name: Set CNAB digest
         uses: azure/CLI@v1.0.9
