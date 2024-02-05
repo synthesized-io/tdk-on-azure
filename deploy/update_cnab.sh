@@ -40,4 +40,4 @@ curl -X POST 'https://graph.microsoft.com/rp/product-ingestion/configure?$versio
       ]
     }
   ]
-}' | jq .jobId
+}'
