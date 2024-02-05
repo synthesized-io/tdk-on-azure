@@ -5,7 +5,7 @@ set -u
 : "${ACCESS_TOKEN:?Need to set ACCESS_TOKEN}"
 : "${PRODUCT_ID:?Need to set PRODUCT_ID}"
 
-curl -X POST "https://graph.microsoft.com/rp/product-ingestion/configure?$version=2022-03-01-preview2" \
+curl -X POST 'https://graph.microsoft.com/rp/product-ingestion/configure?$version=2022-03-01-preview2' \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
 -d '{
