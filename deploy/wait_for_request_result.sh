@@ -5,7 +5,7 @@ function wait_for_result() {
     access_token=$2
 
     for i in {1..15}; do
-        response=$(curl -X GET "https://graph.microsoft.com/rp/product-ingestion/configure/$job_id/status?$version=2022-03-01-preview2" -H "Authorization: Bearer $access_token" | jq)
+        response=$(curl -X GET 'https://graph.microsoft.com/rp/product-ingestion/configure/'"$job_id"'/status?$version=2022-03-01-preview2' -H "Authorization: Bearer $access_token" | jq)
         echo "Response $response"
         response_status=$(jq -r '.jobResult' <<< "$response")
         if [[ ${response_status} == 'failed' ]]; then

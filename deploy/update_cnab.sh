@@ -14,32 +14,6 @@ set -u
 : "${CNAB_TAG:?Need to set CNAB_TAG}"
 : "${CNAB_DIGEST:?Need to set CNAB_DIGEST}"
 
-echo "Authorization: Bearer $ACCESS_TOKEN"
-echo '{
-       "$schema": "https://schema.mp.microsoft.com/schema/configure/2022-03-01-preview2",
-       "resources": [
-         {
-           "$schema": "https://product-ingestion.azureedge.net/schema/container-plan-technical-configuration/2022-03-01-preview3",
-           "id": "container-plan-technical-configuration/'"$PRODUCT_ID"'/'"$PLAN_ID"'",
-           "product": "product/'"$PRODUCT_ID"'",
-           "plan": "plan/'"$PRODUCT_ID"'/'"$PLAN_ID"'",
-           "payloadType": "cnab",
-           "clusterExtensionType": "'"$PLAN_NAME"'",
-           "cnabReferences": [
-             {
-               "tenantId": "'"$TENANT_ID"'",
-               "subscriptionId": "'"$SUBSCRIPTION_ID"'",
-               "resourceGroupName": "'"$RESOURCE_GROUP"'",
-               "registryName": "'"$REGISTRY_NAME"'",
-               "repositoryName": "'"$REPOSITORY_NAME"'",
-               "tag": "'"$CNAB_TAG"'",
-               "digest": '"$CNAB_DIGEST"'
-             }
-           ]
-         }
-       ]
-     }'
-
 curl -X POST 'https://graph.microsoft.com/rp/product-ingestion/configure?$version=2022-03-01-preview2' \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
