@@ -17,7 +17,7 @@ set -u
 PLAN=$(curl -X GET "https://graph.microsoft.com/rp/product-ingestion/container-plan-technical-configuration/$PRODUCT_ID/$PLAN_ID" \
 -H "Authorization: Bearer $ACCESS_TOKEN" | jq)
 
-echo "$PLAN" | jq '.cnabReferences += [{
+PLAN=$(echo "$PLAN" | jq '.cnabReferences += [{
   "tenantId": "'"$TENANT_ID"'",
   "subscriptionId": "'"$SUBSCRIPTION_ID"'",
   "resourceGroupName": "'"$RESOURCE_GROUP"'",
@@ -25,7 +25,7 @@ echo "$PLAN" | jq '.cnabReferences += [{
   "repositoryName": "'"$REPOSITORY_NAME"'",
   "tag": "'"$CNAB_TAG"'",
   "digest": '"$CNAB_DIGEST"'
-}]'
+}]')
 
 curl -X POST 'https://graph.microsoft.com/rp/product-ingestion/configure?$version=2022-03-01-preview2' \
 -H "Content-Type: application/json" \
