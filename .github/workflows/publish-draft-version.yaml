@@ -11,7 +11,6 @@ on:
 env:
   RELEASE_VERSION: ${{ inputs.release-version }}
   AZURE_REGISTRY: "tdkk8soffer"
-  SUBSCRIPTION_ID: "40b294ab-15d4-4a8a-a2ff-737a53d25a2f"
   RESOURCE_GROUP: "tdk-k8s-offer"
   PRODUCT_ID: "d2da9e3f-fcf7-4950-9579-401d67364491"
   REPOSITORY_NAME: "com.synthesized.tdk"
@@ -33,7 +32,7 @@ jobs:
       - name: Azure login
         uses: azure/login@v1.6.1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
 
       - name: Set TDK image digest
         uses: azure/CLI@v1.0.9
@@ -65,8 +64,7 @@ jobs:
         run: |
           docker run -t -v $(pwd):/app -v /var/run/docker.sock:/var/run/docker.sock --name cpa-tool mcr.microsoft.com/container-package-app:latest /bin/sh -c "\
             cd app; \
-            echo \"${{ secrets.AZURE_CERTIFICATE }}\" > cert.pem; \
-            az login --service-principal --username ${{ secrets.AZURE_APP_ID }} --tenant ${{ secrets.AZURE_TENANT_ID }}  --password cert.pem; \
+            az login --service-principal --username ${{ secrets.AZURE_CLIENT_ID }} --tenant ${{ secrets.AZURE_TENANT_ID }} --password ${{ secrets.AZURE_CLIENT_SECRET }}; \
             az acr login --name ${{ env.AZURE_REGISTRY }}; \
             cpa buildbundle \
           "
@@ -80,12 +78,12 @@ jobs:
       - name: Azure login
         uses: azure/login@v1.6.1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
 
       - name: Set env variables
         run: |
           echo "TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" >> $GITHUB_ENV
-          echo "SUBSCRIPTION_ID=${{ env.SUBSCRIPTION_ID }}" >> $GITHUB_ENV
+          echo "SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
           echo "RESOURCE_GROUP=${{ env.RESOURCE_GROUP }}" >> $GITHUB_ENV
           echo "PRODUCT_ID=${{ env.PRODUCT_ID }}" >> $GITHUB_ENV
           echo "REGISTRY_NAME=${{ env.AZURE_REGISTRY }}" >> $GITHUB_ENV
