@@ -18,7 +18,7 @@ function wait_for_result() {
         else
           echo "Attempt $i/15. Intermediate response status $response_status"
         fi
-        sleep 30
+        sleep 5
     done
 
     echo "Retry limit exceeded"
