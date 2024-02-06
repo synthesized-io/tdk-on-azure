@@ -267,7 +267,7 @@
                         "constraints": {
                             "required": false,
                             "validationMessage": "Value is incorrect",
-                            "regex": ".*"
+                            "regex": ".{0,}"
                         },
                         "options": {
                             "hideConfirmation": true
@@ -308,7 +308,7 @@
                         "constraints": {
                             "required": false,
                             "validationMessage": "Value is incorrect",
-                            "regex": ".*"
+                            "regex": ".{0,}"
                         },
                         "options": {
                             "hideConfirmation": true
@@ -337,7 +337,7 @@
                         "constraints": {
                             "required": false,
                             "validationMessage": "Value is incorrect",
-                            "regex": ".*"
+                            "regex": ".{0,}"
                         }
                     },
                     {
@@ -349,7 +349,7 @@
                         "constraints": {
                             "required": true,
                             "validationMessage": "Value is incorrect",
-                            "regex": ".*"
+                            "regex": ".{0,}"
                         }
                     },
                     {
@@ -363,7 +363,7 @@
                         "constraints": {
                             "required": false,
                             "validationMessage": "Value is incorrect",
-                            "regex": ".*"
+                            "regex": ".{0,}"
                         },
                         "options": {
                             "hideConfirmation": true

@@ -129,7 +129,7 @@
             "type": "string"
         },
         "SYNTHESIZED_INPUT_PASSWORD": {
-            "type": "string"
+            "type": "secureString"
         },
         "SYNTHESIZED_OUTPUT_URL": {
             "type": "string"
@@ -138,7 +138,7 @@
             "type": "string"
         },
         "SYNTHESIZED_OUTPUT_PASSWORD": {
-            "type": "string"
+            "type": "secureString"
         },
         "SYNTHESIZED_USERCONFIG": {
             "type": "string"
@@ -147,7 +147,7 @@
             "type": "string"
         },
         "SYNTHESIZED_KEY": {
-            "type": "string"
+            "type": "secureString"
         },
         "schedule": {
             "type": "string"
