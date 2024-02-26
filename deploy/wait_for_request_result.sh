@@ -4,7 +4,7 @@ function wait_for_result() {
     job_id=$1
     access_token=$2
 
-    for i in {1..15}; do
+    for i in {1..30}; do
         response=$(curl -X GET 'https://graph.microsoft.com/rp/product-ingestion/configure/'"$job_id"'/status?$version=2022-03-01-preview2' -H "Authorization: Bearer $access_token" | jq)
         echo "Response $response"
         response_status=$(jq -r '.jobResult' <<< "$response")
@@ -16,7 +16,7 @@ function wait_for_result() {
           echo "Success response $response"
           return 0
         else
-          echo "Attempt $i/15. Intermediate response status $response_status"
+          echo "Attempt $i/30. Intermediate response status $response_status"
         fi
         sleep 5
     done
