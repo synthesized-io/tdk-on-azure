@@ -26,6 +26,7 @@ spec:
           {{- toYaml .Values.cronJobPodLabels | nindent 12 }}
           {{- end }}
           {{- if .Values.cronJobPodAnnotations }}
+            azure-extensions-usage-release-identifier: {{ .Release.Name }}
           annotations:
           {{- toYaml .Values.cronJobPodAnnotations | nindent 12 }}
           {{- end }}
