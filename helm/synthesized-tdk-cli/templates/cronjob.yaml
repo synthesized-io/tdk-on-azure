@@ -59,7 +59,7 @@ spec:
                   value: {{ $val | quote }}
               {{- end }}
                 - name: TDK_AZURE_LICENSE_ENABLED
-                  value: {{ if eq .Values.plan.name "payg" }}"true"{{ else }}"false"{{ end }}
+                  value: {{ if eq .Values.plan.name "planpayg" }}"true"{{ else }}"false"{{ end }}
                 - name: TDK_AZURE_ENABLED
                   value: "true"
               envFrom:

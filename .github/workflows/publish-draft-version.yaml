@@ -111,7 +111,7 @@ jobs:
       - name: Update PAYG version
         working-directory: deploy
         env:
-          PLAN_ID: "2f65f546-c98b-4579-8bae-eb5e3bf6f898"
+          PLAN_ID: "deda2e2a-320e-4b2b-ab41-7cfde8d5a7ad"
           PLAN_NAME: "synthesizedio.payg"
         run: |
           response=$(./update_cnab.sh)

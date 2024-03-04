@@ -60,7 +60,7 @@ The link to our offer: [link](https://partner.microsoft.com/en-us/dashboard/comm
 Within the offer, you'll find two plans:
 
 - [Bring your own license](https://partner.microsoft.com/en-us/dashboard/commercial-marketplace/offers/d2da9e3f-fcf7-4950-9579-401d67364491/plans/a782a5a4-5b0e-41c1-a4ea-3b08b8287652/listings)
-- [Pay-as-you-go](https://partner.microsoft.com/en-us/dashboard/commercial-marketplace/offers/d2da9e3f-fcf7-4950-9579-401d67364491/plans/2f65f546-c98b-4579-8bae-eb5e3bf6f898/listings)
+- [Pay-as-you-go](https://partner.microsoft.com/en-us/dashboard/commercial-marketplace/offers/d2da9e3f-fcf7-4950-9579-401d67364491/plans/deda2e2a-320e-4b2b-ab41-7cfde8d5a7ad/listings)
 
 Select the plan you wish to update, click on "Technical Configuration" on the left panel, then "add CNAB bundle." Choose the `tdkk8soffer` registry, `com.synthesized.tdk` repository, and the required image tag. Save your changes.
 
