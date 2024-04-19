@@ -1,7 +1,7 @@
 applicationName: com.synthesized.tdk
 publisher: "Synthesized.io"
 description: "Populate non-production environments with production-like data."
-version: 1.50.2
+version: 1.52.0
 helmChart: "./helm/synthesized-tdk-cli"
 clusterArmTemplate: "./mainTemplate.json"
 uiDefinition: "./createUIDefinition.json"
