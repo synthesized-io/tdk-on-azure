@@ -110,4 +110,4 @@ global:
       tdkoffer:
         image: tdkcli
         registry: tdkk8soffer.azurecr.io
-        digest: sha256:6d630e6fd7619feefd903b7f37eaf0454fa0e515abbcc50c96c628bc816efa86
+        digest: sha256:cbfae60990543ee1fd8942b03192ab1e5f947bfc338d75847599458e1cb431ec
